@@ -47,3 +47,29 @@ export interface ApiError {
     message: string
   }>
 }
+
+// Authentication types
+export interface LoginRequest {
+  email: string
+  password: string
+}
+
+export interface MembershipProfile {
+  id: string
+  organizationId: string
+  organizationName: string
+  role: string
+  status: string
+}
+
+export interface UserProfile {
+  id: string
+  email: string
+  fullName: string
+  memberships: MembershipProfile[]
+}
+
+export interface LoginResponse {
+  message: string
+  user: UserProfile | null
+}

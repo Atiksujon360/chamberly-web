@@ -103,9 +103,7 @@ export default function ChambersPage() {
       <div className="space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">
-            Chambers
-          </h1>
+          <h1 className="text-2xl font-semibold text-text-primary">Chambers</h1>
           <p className="mt-1 text-text-secondary">
             Manage your chamber locations and schedules
           </p>
@@ -119,7 +117,9 @@ export default function ChambersPage() {
                 Failed to load chambers
               </p>
               <p className="text-sm text-text-secondary">
-                {error instanceof Error ? error.message : 'An error occurred while fetching chambers'}
+                {error instanceof Error
+                  ? error.message
+                  : "An error occurred while fetching chambers"}
               </p>
             </CardBody>
           </Card>
@@ -157,7 +157,11 @@ export default function ChambersPage() {
                   <div className="flex-1">
                     <select
                       value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value as 'all' | 'active' | 'inactive')}
+                      onChange={(e) =>
+                        setStatusFilter(
+                          e.target.value as "all" | "active" | "inactive",
+                        )
+                      }
                       className="w-full px-3 py-2 border border-border rounded-lg text-sm text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                       aria-label="Filter by status"
                     >
@@ -199,29 +203,37 @@ export default function ChambersPage() {
                       onClick={() => handleChamberSelect(chamber.id)}
                       className={`cursor-pointer transition-colors ${
                         activeChamberId === chamber.id
-                          ? 'border-primary ring-2 ring-primary ring-offset-2 ring-offset-background'
-                          : 'hover:border-border-strong'
+                          ? "border-primary ring-2 ring-primary ring-offset-2 ring-offset-background"
+                          : "hover:border-border-strong"
                       }`}
                     >
                       <Card>
                         <CardBody className="p-4">
                           <div className="flex items-start justify-between mb-2">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-text-primary mb-1">
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-lg font-semibold text-text-primary mb-1 truncate">
                                 {chamber.name}
                               </h3>
-                              <p className="text-sm text-text-secondary">
+                              <p className="text-sm text-text-secondary truncate">
                                 {chamber.location}
                               </p>
                             </div>
                             <Badge
-                              variant={chamber.status === 'active' ? 'success' : 'neutral'}
+                              variant={
+                                chamber.status === "active"
+                                  ? "success"
+                                  : "neutral"
+                              }
+                              className="flex-shrink-0 ml-2"
                             >
-                              {chamber.status === 'active' ? 'Active' : 'Inactive'}
+                              {chamber.status === "active"
+                                ? "Active"
+                                : "Inactive"}
                             </Badge>
                           </div>
-                          <div className="text-xs text-text-tertiary">
-                            {chamber.operatingDays.join(', ')} • {chamber.openingHours} - {chamber.closingHours}
+                          <div className="text-xs text-text-tertiary truncate">
+                            {chamber.operatingDays.join(", ")} •{" "}
+                            {chamber.openingHours} - {chamber.closingHours}
                           </div>
                         </CardBody>
                       </Card>
@@ -232,13 +244,13 @@ export default function ChambersPage() {
                 {/* Chamber Details Drawer */}
                 {selectedChamberData && (
                   <Card>
-                    <CardBody className="p-6">
+                    <CardBody className="p-6 overflow-x-auto">
                       <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h2 className="text-xl font-semibold text-text-primary mb-1">
+                        <div className="min-w-0 flex-1">
+                          <h2 className="text-xl font-semibold text-text-primary mb-1 truncate">
                             {selectedChamberData.name}
                           </h2>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-text-secondary truncate">
                             {selectedChamberData.location}
                           </p>
                           {activeChamberId === selectedChamberData.id && (
@@ -252,6 +264,7 @@ export default function ChambersPage() {
                           size="sm"
                           onClick={() => setActiveChamberId(null)}
                           aria-label="Close details"
+                          className="flex-shrink-0"
                         >
                           ✕
                         </Button>
@@ -281,7 +294,7 @@ export default function ChambersPage() {
                             Operating Days
                           </p>
                           <p className="text-sm text-text-primary">
-                            {selectedChamberData.operatingDays.join(', ')}
+                            {selectedChamberData.operatingDays.join(", ")}
                           </p>
                         </div>
 
@@ -290,7 +303,8 @@ export default function ChambersPage() {
                             Hours
                           </p>
                           <p className="text-sm text-text-primary">
-                            {selectedChamberData.openingHours} - {selectedChamberData.closingHours}
+                            {selectedChamberData.openingHours} -{" "}
+                            {selectedChamberData.closingHours}
                           </p>
                         </div>
 
@@ -318,16 +332,23 @@ export default function ChambersPage() {
                             Status
                           </p>
                           <Badge
-                            variant={selectedChamberData.status === 'active' ? 'success' : 'neutral'}
+                            variant={
+                              selectedChamberData.status === "active"
+                                ? "success"
+                                : "neutral"
+                            }
                           >
-                            {selectedChamberData.status === 'active' ? 'Active' : 'Inactive'}
+                            {selectedChamberData.status === "active"
+                              ? "Active"
+                              : "Inactive"}
                           </Badge>
                         </div>
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-border">
                         <p className="text-xs text-text-tertiary">
-                          * Chamber creation, editing, and deletion require backend integration.
+                          * Chamber creation, editing, and deletion require
+                          backend integration.
                         </p>
                       </div>
                     </CardBody>
@@ -339,5 +360,5 @@ export default function ChambersPage() {
         )}
       </div>
     </AppShell>
-  )
+  );
 }
